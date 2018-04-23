@@ -1,0 +1,8 @@
+{
+  "name": "matt-wyld-scripting-task-wmp",
+  "app_id": "ff7d7b6e",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
