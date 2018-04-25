@@ -6,12 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { DetailPage } from '../pages/detail/detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
-import { Config } from '../config';
+import { Config } from '../config.model';
 import { HttpService } from '../services/http.service';
 import { LoadingService } from '../services/loading.service';
 import { ToastService } from '../services/toast.service';
@@ -20,7 +22,8 @@ import { ToastService } from '../services/toast.service';
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    DetailPage
   ],
   imports: [
     BrowserModule,
@@ -31,13 +34,15 @@ import { ToastService } from '../services/toast.service';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    DetailPage
   ],
   providers: [
     Config,
     StatusBar,
     SplashScreen,
     Geolocation,
+    Diagnostic,
     HttpService,
     LoadingService,
     ToastService,

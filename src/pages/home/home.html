@@ -1,23 +1,42 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Neighbourhood Team Info</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
 
-  <ion-list *ngIf="team">
-    <ion-list-header><ion-icon name="person"></ion-icon> Your Neighbourhood Team</ion-list-header>
-    <ion-item-group>
-      <ion-item *ngFor="let person of team" item-start>
-        <h3>{{ person.name }}</h3>
-        <p>{{ person.rank }}</p>
-        <ion-icon name="ios-arrow-dropright" item-end></ion-icon>
+  <div class="page_picture">
+    <img src="../../assets/imgs/home.png">
+  </div>
+
+  <h1 class="main_heading">Neighbourhood Teams</h1>
+
+  <ion-card padding>
+    <div *ngIf="loc">
+      <ion-item>
+        <ion-spinner *ngIf="loc.showSpinner" name="circles" item-start large></ion-spinner>
+        <ion-icon *ngIf="!loc.showSpinner" name="pin" item-start large></ion-icon>
+        <h2>{{loc.title}}</h2>
+        <p>{{loc.details}}</p>
       </ion-item>
-    </ion-item-group>
-  </ion-list>
+      <button *ngIf="!loc.hasErrored" (click)="goToList()" [disabled]="!loc.longitude || !loc.latitude" ion-button block round>Find Neighbourhood Team</button>
+      <button *ngIf="loc.hasErrored" ion-button block round (click)="getLocation()">Try Again?</button>
+    </div>
+    <ion-item padding>
+      <ion-label>Auto update location</ion-label>
+      <ion-toggle [(ngModel)]="shouldAutoUpdate" (ionChange)="toggleAutoUpdateLocation()"></ion-toggle>
+    </ion-item>
+    <!-- MWyld I would add further validation here with more time such as a postcode regex, however I am doing this in the typescript file -->
+    <form #heroForm="ngForm">
+      <ion-item padding>
+        <ion-label stacked>Or search by Postcode</ion-label>
+        <ion-input required
+        type="text"
+        placeholder="eg. B4 6NQ"
+        autocorrect="false"
+        [(ngModel)]="postcode"
+        name="postcode"
+        max="10"
+        min="4"></ion-input>
+      </ion-item>
+      <button type="submit" [disabled]="!postcode" (click)="getLngLatFromPostcode()" ion-button block round color="light">Search Postcode</button>
+    </form>
+
+  </ion-card>
 
 </ion-content>

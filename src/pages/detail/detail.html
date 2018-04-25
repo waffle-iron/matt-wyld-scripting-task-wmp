@@ -1,0 +1,95 @@
+<ion-content padding>
+
+  <ion-card>
+
+    <ion-fab left top>
+      <button ion-fab (click)="goBack()">
+        <ion-icon name="md-arrow-round-back"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <img *ngIf="person.cover" [src]="person.cover"/>
+    <ion-card-content>
+      <div *ngIf="person">
+      <ion-card-title>{{person.name}}</ion-card-title>
+      <div class="card-subtitle">{{person.rank}}</div>
+      <p [innerHTML]="person.bio"></p>
+      <hr />
+      <div class="card-subtitle">Contact Details</div>
+        <div *ngIf="person.contact_details">
+          <ion-grid class="contact_details">
+            <ion-row *ngIf="person.contact_details.email">
+              <ion-col col-5><ion-icon name="md-mail"></ion-icon> Email</ion-col>
+              <ion-col col-7><a href="{{person.contact_details.email}}">{{person.contact_details.email}}</a></ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.telephone">
+              <ion-col col-5><ion-icon name="md-call"></ion-icon> Telephone</ion-col>
+              <ion-col col-7><a href="tel:{{person.contact_details.telephone}}">{{person.contact_details.telephone}}</a></ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.mobile">
+              <ion-col col-5><ion-icon name="md-phone-portrait"></ion-icon> Mobile</ion-col>
+              <ion-col col-7><a href="tel:{{person.contact_details.telephone.replace(' ','')}}">{{person.contact_details.mobile}}</a></ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.fax">
+              <ion-col col-5><ion-icon name="md-print"></ion-icon> Fax</ion-col>
+              <ion-col col-7>{{person.contact_details.fax}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.web">
+              <ion-col col-5><ion-icon name="md-at"></ion-icon> Web</ion-col>
+              <ion-col col-7><a href="{{person.contact_details.web}}">{{person.contact_details.web}}</a></ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.address">
+              <ion-col col-5><ion-icon name="md-home"></ion-icon> Address</ion-col>
+              <ion-col col-7>{{person.contact_details.address}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.facebook">
+              <ion-col col-5><ion-icon name="logo-facebook"></ion-icon> Facebook</ion-col>
+              <ion-col col-7>{{person.contact_details.facebook}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.twitter">
+              <ion-col col-5><ion-icon name="logo-twitter"></ion-icon> Twitter</ion-col>
+              <ion-col col-7>{{person.contact_details.twitter}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.youtube">
+              <ion-col col-5><ion-icon name="logo-youtube"></ion-icon> You Tube</ion-col>
+              <ion-col col-7>{{person.contact_details.youtube}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.bebo">
+              <ion-col col-5><ion-icon name="md-albums"></ion-icon> Bebo</ion-col>
+              <ion-col col-7>{{person.contact_details.bebo}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.flickr">
+              <ion-col col-5><ion-icon name="md-camera"></ion-icon> Flickr</ion-col>
+              <ion-col col-7>{{person.contact_details.flickr}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details['google-plus']">
+              <ion-col col-5><ion-icon name="logo-googleplus"></ion-icon> Google+</ion-col>
+              <ion-col col-7>{{person.contact_details['google-plus']}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.forum">
+              <ion-col col-5><ion-icon name="md-bookmarks"></ion-icon> Forum</ion-col>
+              <ion-col col-7>{{person.contact_details.forum}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details['e-messaging']">
+              <ion-col col-5><ion-icon name="md-chatbubbles"></ion-icon> E-Message</ion-col>
+              <ion-col col-7>{{person.contact_details['e-messaging']}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.blog">
+              <ion-col col-5><ion-icon name="md-chatboxes"></ion-icon> Blog</ion-col>
+              <ion-col col-7>{{person.contact_details.blog}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="person.contact_details.rss">
+              <ion-col col-5><ion-icon name="md-calendar"></ion-icon> RSS</ion-col>
+              <ion-col col-7>{{person.contact_details.rss}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <p *ngIf="isContactDetailsEmpty()">No contact details available</p>
+      </div>
+    </ion-card-content>
+    <button padding ion-button block full (click)="emailDetails()">Email these details</button>
+  </ion-card>
+
+
+
+</ion-content>
