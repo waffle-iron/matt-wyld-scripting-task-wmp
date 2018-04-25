@@ -7,11 +7,11 @@ export class ToastService {
     private toastCtrl: ToastController
   ) {}
 
-  presentToast( content: string): void {
+  presentToast(content: string): void {
     let toast = this.toastCtrl.create({
       message: content,
-      duration: 3000,
-      position: 'top'
+      duration: 5000,
+      position: 'bottom'
     });
     toast.present();
   }
