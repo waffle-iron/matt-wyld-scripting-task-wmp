@@ -1,37 +1,74 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { Config } from '../../config.model';
+import { LoadingService } from '../../services/loading.service';
+import { HttpService } from '../../services/http.service';
+
+import { Ilocation } from '../../interfaces/location.interface';
+import { INeighbourhood } from '../../interfaces/neighbourhood.interface';
+import { IPerson } from '../../interfaces/person.interface';
+
+import { DetailPage } from '../detail/detail';
+
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
 export class ListPage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+  public location: Ilocation;
+  public team: IPerson[];
+  private neighbourhood: INeighbourhood;
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private config: Config,
+    private HttpService: HttpService,
+    private LoadingService: LoadingService
+  ) {
+    this.location = navParams.data;
+  }
 
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
+
+  ionViewDidLoad() {
+    this.getNeighbourhoodCode();
+  }
+
+  getNeighbourhoodCode(): void {
+    this.LoadingService.presentLoader('gettingNeighbourhoodCode', `Fetching ${this.location.parish} Neighbourhood Team Details...`);
+    this.HttpService.get(`${this.config.api.police}/locate-neighbourhood?q=${this.location.latitude},${this.location.longitude}`)
+    .subscribe((data) => {
+      this.neighbourhood = data
+      console.log(this.neighbourhood);
+      this.LoadingService.dismissLoader('gettingNeighbourhoodCode');
+      this.getNeighbourhoodTeam();
+    });
+  }
+
+  getNeighbourhoodTeam(): void {
+    if(this.neighbourhood.force && this.neighbourhood.neighbourhood) {
+      this.LoadingService.presentLoader('gettingNeighbourhoodTeam', 'Fetching your Neighbourhood Team...');
+      this.HttpService.get(`${this.config.api.police}/${this.neighbourhood.force}/${this.neighbourhood.neighbourhood}/people`)
+      .subscribe((data) => {
+        this.team = data
+        this.team.unshift(this.config.listAdditions)
+        this.LoadingService.dismissLoader('gettingNeighbourhoodTeam');
+        console.log(this.team)
       });
     }
   }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
+  goToDetails(selectedPerson: IPerson): void {
+    console.log("test", selectedPerson);
+    this.navCtrl.push(DetailPage, selectedPerson);
   }
+
+  goBack(): void {
+    console.log("pop view")
+    this.navCtrl.pop();
+  }
+
+
 }
