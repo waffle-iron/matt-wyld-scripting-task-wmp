@@ -109,6 +109,7 @@ export class HomePage {
 
     // check if the postcode is a valid UK postcode using Regex
     let isPostcode = this.config.regex.ukPostcode.test(this.postcode);
+    this.loc.hasErrored = false;
 
     if(!isPostcode) {
       this.ToastService.presentToast(`That doesn\'t appear to be a valid UK Postcode`);
