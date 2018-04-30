@@ -31,7 +31,7 @@ export class Config {
         address: 'Droitwich',
         facebook: null,
       },
-      rank: 'Potiental Software Engineer',
+      rank: 'Potential Software Engineer',
       image: '../../assets/imgs/matt.jpg',
       cover: '../../assets/imgs/matt-cover.jpg'
     }
