@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { Config } from '../config.model';
 import { HttpService } from '../services/http.service';
@@ -43,6 +44,7 @@ import { ToastService } from '../services/toast.service';
     SplashScreen,
     Geolocation,
     Diagnostic,
+    EmailComposer,
     HttpService,
     LoadingService,
     ToastService,

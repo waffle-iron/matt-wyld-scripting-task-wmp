@@ -89,4 +89,5 @@
     </plugin>
     <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova.plugins.diagnostic" spec="^4.0.5" />
+    <plugin name="cordova-plugin-email-composer" spec="~0.8.15" />
 </widget>

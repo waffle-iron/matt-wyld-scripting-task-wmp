@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { IPerson } from '../../interfaces/person.interface';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'page-detail',
@@ -9,15 +11,25 @@ import { IPerson } from '../../interfaces/person.interface';
 export class DetailPage {
   public person: IPerson;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private EmailComposer: EmailComposer,
+    private ToastService: ToastService
+  ) {
     this.person = navParams.data;
   }
 
   emailDetails(): void {
-    window.location.href = `mailto:?subject=Neighbourhood Team Police Details&body=
-    ${this.person.name}
-    ${this.person.rank}
-    ${this.person.bio}`;
+     this.EmailComposer.open({
+       to: '',
+       cc: 'matt@wyldweb.com',
+       subject: 'Neighbourhood Team Police Details',
+       body: `<p><b>${this.person.name}</b></p>
+       <p>${this.person.rank}</p>
+       <p>${this.person.bio}</p>`,
+       isHtml: true
+     });
   }
 
   isContactDetailsEmpty(): Boolean {
