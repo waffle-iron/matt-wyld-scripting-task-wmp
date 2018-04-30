@@ -20,7 +20,7 @@
           <ion-grid class="contact_details">
             <ion-row *ngIf="person.contact_details.email">
               <ion-col col-5><ion-icon name="md-mail"></ion-icon> Email</ion-col>
-              <ion-col col-7><a href="{{person.contact_details.email}}">{{person.contact_details.email}}</a></ion-col>
+              <ion-col col-7><a href="mailto:{{person.contact_details.email}}">{{person.contact_details.email}}</a></ion-col>
             </ion-row>
             <ion-row *ngIf="person.contact_details.telephone">
               <ion-col col-5><ion-icon name="md-call"></ion-icon> Telephone</ion-col>
