@@ -37,12 +37,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.getLocation();
-    this.Diagnostic.isLocationAvailable().then((data) => {
-      console.log(data)
-    }).catch((err) => {
-      console.log(err)
-    });
-    //this.toggleAutoUpdateLocation(true);
   }
 
   // attempt to get the users location, if this fails ask for a postcode
@@ -90,13 +84,14 @@ export class HomePage {
       .subscribe((data) => {
         this.loc.showSpinner = false;
         let d = data.result[0];
+        console.log(data.result[0])
         if(data.status === 200) {
           this.loc.parish = d.parish;
           this.loc.district = d.admin_district;
           this.loc.county = d.admin_county;
           this.loc.region = d.region;
           this.loc.title = 'We have located you in:';
-          this.loc.details = `${d.parish}, ${d.admin_county}`;
+          this.loc.details = `${d.admin_district}`;
           this.postcode = d.postcode; // MWyld populate the nearest postcode into the input for ease of use
         } else {
           this.loc.title ='We have located you!';
